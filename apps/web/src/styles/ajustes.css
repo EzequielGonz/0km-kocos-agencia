@@ -1,0 +1,11 @@
+
+/* 21/10 · Llamados a la acción entre secciones */
+.seccion-cta{background:linear-gradient(90deg,var(--deep),var(--navy));color:#fff;padding-block:36px}
+.seccion-cta-inner{display:flex;align-items:center;justify-content:space-between;gap:32px}
+.seccion-cta-titulo{font-weight:800;font-size:19px;margin:0 0 6px;color:#fff}
+.seccion-cta-texto{margin:0;color:rgba(255,255,255,.78);font-size:14px;max-width:620px}
+.seccion-cta-acciones{display:flex;align-items:center;gap:20px;flex-shrink:0}
+.seccion-cta-wa{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:var(--radius);background:#25D366;color:#04251a;font-weight:800;font-size:13px;white-space:nowrap;transition:transform .25s ease,background .25s ease}
+.seccion-cta-wa:hover{background:#1ebe5b;transform:translateY(-2px)}
+.seccion-cta-tel{display:inline-flex;align-items:center;gap:8px;color:#fff;font-weight:700;font-size:14px}
+@media(max-width:760px){.seccion-cta-inner{flex-direction:column;align-items:stretch;gap:18px}.seccion-cta-acciones{flex-direction:column;align-items:stretch}.seccion-cta-tel{justify-content:center}}
