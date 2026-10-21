@@ -11,12 +11,13 @@
 
 export type LeadsProvider = 'supabase' | 'webhook' | 'none';
 
-export const LEADS_PROVIDER: LeadsProvider = 'none';
+/** 21/10: las consultas van al CRM (Supabase) y el agente escribe por WhatsApp a los 5 minutos. */
+export const LEADS_PROVIDER: LeadsProvider = 'webhook';
 
 /** La anon key es pública por diseño: la política RLS del SQL solo permite insertar. */
 export const SUPABASE_CONFIG = { url: '', anonKey: '', table: 'consultas' };
 
-export const WEBHOOK_URL = '';
+export const WEBHOOK_URL = 'https://legal-crm-nine.vercel.app/api/landing?perfil=agencia_0km';
 
 export const leadsEnabled = (): boolean => LEADS_PROVIDER !== 'none';
 
@@ -51,8 +52,22 @@ export async function submitLead(lead: Lead): Promise<void> {
   }
   if (LEADS_PROVIDER === 'webhook') {
     if (!WEBHOOK_URL) throw new Error('Webhook sin configurar');
-    await postJson(WEBHOOK_URL, payload);
+    await postJson(WEBHOOK_URL, paraCrm(payload));
     return;
   }
   console.warn('[leads] Sin base de datos conectada: la consulta no se envió. Configurá LEADS_PROVIDER en lib/leads.ts.', payload);
+}
+
+/** Formato que recibe el CRM: nombre, teléfono, tipo y una descripción con el resto de los datos. */
+function paraCrm(l: Lead & { origen: string }) {
+  const extras: [string, string | undefined][] = [
+    ['Unidad que le interesa', l.unidad],
+    ['Anticipo', l.anticipo],
+    ['Monto del anticipo', l.monto],
+    ['Usado para entregar', l.usado],
+    ['Detalle del usado', l.detalleUsado],
+    ['Plazo', l.plazo],
+  ];
+  const descripcion = [...extras.filter(([, v]) => v && String(v).trim()).map(([k, v]) => `${k}: ${v}`), l.consulta ?? ''].filter(Boolean).join('\n');
+  return { nombre: l.nombre, apellido: l.apellido, telefono: l.telefono, tipo: l.busqueda, descripcion: descripcion || l.busqueda, origen: l.origen, llegada: typeof document === 'undefined' ? '' : document.referrer };
 }
