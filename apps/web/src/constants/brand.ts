@@ -9,24 +9,24 @@ export const LOGO_URL = 'https://horizons-cdn.hostinger.com/36f43b4e-b629-4797-8
 export const SHARE_IMAGE_URL = 'https://images.hostinger.com/779d0081-21c7-4db5-9f52-90707f401fcc.png';
 
 /** Dominio definitivo con https y sin barra final. Ej: 'https://www.agenciakocos.com.ar'. */
-export const SITE_URL = '';
+export const SITE_URL = 'https://autoskocos.com';
 
 /** Teléfono como se muestra, ej. '(011) 4000-0000', y en formato internacional, ej. '+541140000000'. */
-export const PHONE = '';
-export const PHONE_E164 = '';
+export const PHONE = '11 4067-4772';
+export const PHONE_E164 = '+5491140674772';
 
 /**
  * WhatsApp: solo números, con 549. Ej: '5491140000000'.
  * Mientras esté vacío, los botones abren el aviso "Pronto vas a poder escribirnos",
  * igual que hoy en la home.
  */
-export const WHATSAPP_NUMBER = '';
+export const WHATSAPP_NUMBER = '5491140674772';
 export const WHATSAPP_DEFAULT_MESSAGE = 'Hola, quiero asesoramiento para comprar un 0km.';
 
-export const EMAIL = '';
-export const INSTAGRAM_URL = '';
-export const INSTAGRAM_HANDLE = '';
-export const FACEBOOK_URL = '';
+export const EMAIL = 'autoskocos@hotmail.com';
+export const INSTAGRAM_URL = 'https://www.instagram.com/autoskocos/';
+export const INSTAGRAM_HANDLE = '@autoskocos';
+export const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61594687512414';
 export const TIKTOK_URL = '';
 export const YOUTUBE_URL = '';
 
