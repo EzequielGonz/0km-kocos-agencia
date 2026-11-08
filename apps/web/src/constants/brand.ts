@@ -11,7 +11,7 @@ export const LOGO_URL = '/logo-marca.png';
 export const SHARE_IMAGE_URL = '/img/og-compartir.jpg';
 
 /** Dominio definitivo con https y sin barra final. Ej: 'https://www.agenciakocos.com.ar'. */
-export const SITE_URL = 'https://autoskocos.com';
+export const SITE_URL = 'https://www.autoskocos.com';
 /** Logo con dominio completo, para los datos estructurados. */
 export const LOGO_ABSOLUTE_URL = `${SITE_URL}${LOGO_URL}`;
 
