@@ -20,7 +20,8 @@ export const links: Route.LinksFunction = () => [
 	{ rel: 'stylesheet', href: stylesheet },
 	{ rel: 'stylesheet', href: articulosStylesheet },
 	{ rel: 'stylesheet', href: ajustesStylesheet },
-	{ rel: 'icon', href: 'https://horizons-cdn.hostinger.com/36f43b4e-b629-4797-867e-b3697140c643/dd63ce66f2d8ee5fafde6d7ed609128a.png', type: 'image/png' },
+	{ rel: 'icon', href: '/logo-marca.png', type: 'image/png' },
+	{ rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
 	{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
 	{
 		rel: 'preconnect',

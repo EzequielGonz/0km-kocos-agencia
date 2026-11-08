@@ -8,6 +8,7 @@ import { getGuiasHub } from '@/content/index.server';
 import { withBrand } from '@/lib/page-meta';
 import { breadcrumbSchema, businessSchema } from '@/lib/schema';
 import { seo, siteOriginFrom } from '@/lib/seo';
+import { SHARE_IMAGE_URL } from '@/constants/brand';
 
 const PATH = '/guias';
 const BREADCRUMBS = [{ name: 'Inicio', path: '/' }, { name: 'Guías', path: PATH }];
@@ -23,6 +24,7 @@ export function meta({ matches, location }: Route.MetaArgs) {
     title: withBrand('Guías para comprar tu 0km en CABA'),
     description: 'Guías para comprar un auto 0km en CABA y el AMBA: modelos, financiación, plan de ahorro, patentamiento, seguro y entrega.',
     path: PATH,
+    image: SHARE_IMAGE_URL,
     jsonLd: [businessSchema(origin), breadcrumbSchema(origin, BREADCRUMBS)],
   });
 }

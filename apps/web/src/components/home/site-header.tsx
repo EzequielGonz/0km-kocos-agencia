@@ -3,7 +3,7 @@ import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router';
 import { WhatsappButton } from '@/components/home/whatsapp-button';
 
-const logo = 'https://horizons-cdn.hostinger.com/36f43b4e-b629-4797-867e-b3697140c643/dd63ce66f2d8ee5fafde6d7ed609128a.png';
+const logo = '/logo-marca.png';
 // "0KM" y "Financiación" llevan a las secciones SEO (reemplazan al ancla "Vehículos").
 // Las anclas llevan "/" para funcionar desde cualquier página; "Contacto" queda
 // relativa porque los artículos también tienen su formulario (#contacto).

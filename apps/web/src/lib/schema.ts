@@ -1,5 +1,5 @@
 /** Datos estructurados (JSON-LD): no se ven, le explican a Google qué es la agencia y cada página. */
-import { ADDRESS, EMAIL, FIRM_NAME, LOGO_URL, OPENING_HOURS, PHONE, SOCIAL_LINKS } from '@/constants/brand';
+import { ADDRESS, EMAIL, FIRM_NAME, LOGO_ABSOLUTE_URL, OPENING_HOURS, PHONE, SOCIAL_LINKS } from '@/constants/brand';
 
 const CONTEXT = 'https://schema.org';
 export const firmId = (origin: string) => `${origin}/#agencia`;
@@ -18,8 +18,8 @@ export function businessSchema(origin: string) {
     name: FIRM_NAME,
     description: 'Agencia multimarca de autos 0km en CABA y el AMBA: contado, crédito prendario, planes de ahorro y usado como parte de pago.',
     url: `${origin}/`,
-    logo: LOGO_URL,
-    image: LOGO_URL,
+    logo: LOGO_ABSOLUTE_URL,
+    image: LOGO_ABSOLUTE_URL,
     telephone: PHONE || undefined,
     email: EMAIL || undefined,
     openingHours: OPENING_HOURS || undefined,
@@ -45,7 +45,7 @@ export function articleSchema(origin: string, article: { path: string; title: st
   return {
     '@context': CONTEXT, '@type': 'Article', '@id': `${url}#articulo`, mainEntityOfPage: url,
     headline: article.title.slice(0, 110), description: article.description, inLanguage: 'es-AR',
-    datePublished: article.published, dateModified: article.updated, image: LOGO_URL,
+    datePublished: article.published, dateModified: article.updated, image: LOGO_ABSOLUTE_URL,
     author: { '@id': firmId(origin) }, publisher: { '@id': firmId(origin) },
   };
 }

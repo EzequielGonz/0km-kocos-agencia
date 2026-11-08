@@ -19,7 +19,7 @@ export const SUPABASE_CONFIG = { url: '', anonKey: '', table: 'consultas' };
 
 export const WEBHOOK_URL = 'https://legal-crm-nine.vercel.app/api/landing?perfil=agencia_0km';
 
-export const leadsEnabled = (): boolean => LEADS_PROVIDER !== 'none';
+export const leadsEnabled = (): boolean => (LEADS_PROVIDER as LeadsProvider) !== 'none';
 
 export type Lead = {
   nombre: string;

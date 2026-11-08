@@ -1,5 +1,9 @@
 import type { Page } from './types';
 
+/** Recorta una descripción sin cortar palabras a la mitad (Google muestra ~160 caracteres). */
+const recortar = (texto: string, max = 160): string => (texto.length <= max ? texto : `${texto.slice(0, max - 1).replace(/[\s,.;:]+\S*$/, '')}…`);
+
+
 const D = '2026-09-29';
 const K = '/0km';
 const F = '/financiacion';
@@ -162,7 +166,7 @@ function segmentoToPage(s: Segmento): Page {
     updated: D,
     path: `${K}/${s.slug}`,
     title: s.titulo,
-    description: `${s.intro.split('. ')[0]}. Compará modelos de distintas marcas y cotizá con contado, prendario, plan de ahorro o tu usado.`.slice(0, 160),
+    description: recortar(`${s.intro.split('. ')[0]}. Compará modelos de distintas marcas y cotizá con contado, prendario, plan de ahorro o tu usado.`),
     label: `${s.nombre.toUpperCase()} 0KM`,
     h1: `${s.nombre} 0KM:`,
     h1Em: s.h1Em,

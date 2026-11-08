@@ -1,5 +1,9 @@
 import type { Page } from './types';
 
+/** Recorta una descripción sin cortar palabras a la mitad (Google muestra ~160 caracteres). */
+const recortar = (texto: string, max = 160): string => (texto.length <= max ? texto : `${texto.slice(0, max - 1).replace(/[\s,.;:]+\S*$/, '')}…`);
+
+
 /**
  * Páginas locales (solo AMBA, sin La Plata; prioridad CABA). Cada zona tiene
  * datos propios para no ser una página duplicada. Para potenciarlas, sumá en
@@ -67,7 +71,7 @@ function zonaToPage(z: Zona): Page {
     updated: D,
     path: `${K}/${z.slug}`,
     title: `Autos 0km ${z.en}: todas las marcas y financiación`.length <= 62 ? `Autos 0km ${z.en}: todas las marcas y financiación` : `Autos 0km ${z.en}: marcas y financiación`,
-    description: `Comprá tu 0km ${z.en}: ${lista(z.lugares.slice(0, 3))}. Todas las marcas, contado, crédito prendario, plan de ahorro y tu usado como parte de pago.`.slice(0, 160),
+    description: recortar(`Comprá tu 0km ${z.en}: ${lista(z.lugares.slice(0, 3))}. Todas las marcas, contado, crédito prendario, plan de ahorro y tu usado como parte de pago.`),
     label: `AUTOS 0KM / ${z.region.toUpperCase()}`,
     h1: 'Autos 0KM',
     h1Em: `${z.en}.`,
