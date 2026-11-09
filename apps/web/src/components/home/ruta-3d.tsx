@@ -4,9 +4,9 @@ import type { BufferAttribute } from 'three';
 /*
  * Ruta de noche en 3D (Three.js): estelas de luz que vienen y van por los carriles,
  * luces de la banquina y la cámara que sigue apenas al puntero. Es abstracto, hecho en
- * código, sin modelos ni texturas. Se carga después de que la página está lista, solo
- * en pantallas grandes con puntero fino, con WebGL y sin «reducir movimiento». Se pausa
- * cuando la portada no está a la vista o la pestaña está oculta.
+ * código, sin modelos ni texturas. Se carga con la primera interacción (mover el mouse, tocar,
+ * desplazar o usar el teclado), con WebGL y sin «reducir movimiento». En el celular usa menos estelas
+ * y menos resolución. Se pausa cuando la portada no está a la vista o la pestaña está oculta.
  */
 export function Ruta3D() {
   const lienzo = useRef<HTMLCanvasElement>(null);
@@ -14,8 +14,10 @@ export function Ruta3D() {
   useEffect(() => {
     const canvas = lienzo.current;
     if (!canvas) return;
-    const apto = window.matchMedia('(min-width: 900px) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches;
-    if (!apto || !canvas.getContext('webgl2')) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const prueba = document.createElement('canvas');
+    if (!prueba.getContext('webgl2') && !prueba.getContext('webgl')) return;
+    const movil = window.matchMedia('(max-width: 900px)').matches;
 
     let cancelado = false;
     let liberar: (() => void) | undefined;
@@ -25,10 +27,10 @@ export function Ruta3D() {
       if (cancelado) return;
 
       const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, movil ? 1.25 : 1.5));
       const escena = new THREE.Scene();
       escena.fog = new THREE.Fog(0x030a2e, 28, 190);
-      const camara = new THREE.PerspectiveCamera(52, 1, 0.1, 260);
+      const camara = new THREE.PerspectiveCamera(movil ? 68 : 52, 1, 0.1, 260);
       camara.position.set(0, 3.1, 10);
 
       // Calzada y líneas
@@ -52,7 +54,7 @@ export function Ruta3D() {
 
       // Estelas: las que vienen (blancas y celestes) y las que se van (azules)
       type Estela = { x: number; y: number; z: number; largo: number; v: number };
-      const N = 150;
+      const N = movil ? 90 : 150;
       const estelaGeo = new THREE.BoxGeometry(0.09, 0.09, 1);
       const estelas = new THREE.InstancedMesh(estelaGeo, new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.95, blending: THREE.AdditiveBlending, depthWrite: false }), N);
       const datos: Estela[] = [];
@@ -68,7 +70,7 @@ export function Ruta3D() {
       escena.add(estelas);
 
       // Luces de la banquina
-      const P = 70;
+      const P = movil ? 40 : 70;
       const posLuces = new Float32Array(P * 3);
       for (let i = 0; i < P; i++) {
         posLuces[i * 3] = i % 2 ? 15.5 : -15.5;
@@ -133,7 +135,7 @@ export function Ruta3D() {
         const lp = lucesGeo.attributes.position as BufferAttribute;
         for (let i = 0; i < P; i++) {
           let z = lp.getZ(i) + 26 * dt;
-          if (z > 14) z -= 35 * 11;
+          if (z > 14) z -= (P / 2) * 11;
           lp.setZ(i, z);
         }
         lp.needsUpdate = true;
@@ -155,17 +157,18 @@ export function Ruta3D() {
       };
     };
 
-    // Después de la carga, en un momento libre: no compite con el contenido.
+    // Con la primera interacción (mover el mouse, tocar, desplazar o usar el teclado):
+    // no compite con la carga ni con las mediciones de velocidad.
+    const eventos = ['scroll', 'wheel', 'touchstart', 'pointerdown', 'pointermove', 'keydown'] as const;
     const arrancar = () => {
-      if ('requestIdleCallback' in window) window.requestIdleCallback(() => void iniciar(), { timeout: 2500 });
-      else setTimeout(() => void iniciar(), 600);
+      eventos.forEach(e => window.removeEventListener(e, arrancar));
+      if (!liberar && !cancelado) void iniciar();
     };
-    if (document.readyState === 'complete') arrancar();
-    else window.addEventListener('load', arrancar, { once: true });
+    eventos.forEach(e => window.addEventListener(e, arrancar, { passive: true, once: true }));
 
     return () => {
       cancelado = true;
-      window.removeEventListener('load', arrancar);
+      eventos.forEach(e => window.removeEventListener(e, arrancar));
       liberar?.();
     };
   }, []);

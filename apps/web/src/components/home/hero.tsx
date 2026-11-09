@@ -48,13 +48,13 @@ export function Hero() {
   return (
     <section className="portada" id="inicio">
       <div className="portada-fondo" aria-hidden="true" />
-      <Ruta3D />
       <div className="portada-velo" aria-hidden="true" />
       <div className="contenedor portada-grid">
         <div className="portada-texto">
           <h1>Comprá tu 0 km con tu usado, en cuotas o de contado</h1>
           <p className="portada-bajada">Agencia multimarca en CABA y el AMBA. Te asesoramos para elegir la forma de pago y tomamos tu usado como parte de pago.</p>
         </div>
+        <div className="portada-ruta" aria-hidden="true"><Ruta3D /></div>
         <div className="pago">
           <div className="pago-pestanas" role="tablist" aria-label="Formas de pago" onKeyDown={alTeclear}>
             {formas.map((f, i) => (
