@@ -39,3 +39,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   .footer-contact a { white-space: normal; overflow-wrap: anywhere; }
   .footer-bottom { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
+
+/* Guías: enlace simple a la sección anterior en lugar de la ruta «Inicio / Guías / …» */
+.doc-volver { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 28px; font-size: 14px; font-weight: 600; letter-spacing: 0; text-transform: none; opacity: .75; transition: opacity .2s ease; }
+.doc-volver:hover { opacity: 1; }

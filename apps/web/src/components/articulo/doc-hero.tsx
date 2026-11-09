@@ -1,7 +1,5 @@
 import { Link } from 'react-router';
-import { FIRM_NAME } from '@/constants/brand';
 import { CTA } from '@/constants/cta';
-import { formatDate } from '@/lib/text';
 import { ContactButtons } from './contact-buttons';
 
 type Props = {
@@ -21,30 +19,18 @@ function WithDot({ text }: { text: string }) {
 }
 
 /** Cabecera oscura con la misma tipografía, etiqueta y botones que el hero de la home. */
-export function DocHero({ h1, h1Em, lead, breadcrumbs, updated, origen, whatsappMessage }: Props) {
+export function DocHero({ h1, h1Em, lead, breadcrumbs, origen, whatsappMessage }: Props) {
   return (
     <section className="doc-hero" id="inicio">
       <div className="hero-light" aria-hidden="true" />
       <div className="wrap doc-hero-inner">
-        <nav className="doc-breadcrumb" aria-label="Ruta de navegación">
-          <ol>
-            {breadcrumbs.map((crumb, index) => (
-              <li key={crumb.path}>
-                {index < breadcrumbs.length - 1 ? <Link to={crumb.path}>{crumb.name}</Link> : <span aria-current="page">{crumb.name}</span>}
-              </li>
-            ))}
-          </ol>
-        </nav>
+        {breadcrumbs.length > 1 && <Link className="doc-volver" to={breadcrumbs[breadcrumbs.length - 2].path}>← {breadcrumbs[breadcrumbs.length - 2].name}</Link>}
         
         <h1>{h1Em ? <>{h1} <em><WithDot text={h1Em} /></em></> : <WithDot text={h1} />}</h1>
         <p className="doc-lead">{lead}</p>
         <div className="hero-buttons">
           <ContactButtons whatsappMessage={whatsappMessage} origen={origen} formLabel={CTA.hero.primary} callLabel={CTA.mid.callLabel} />
         </div>
-      </div>
-      <div className="wrap doc-meta">
-        <span>{FIRM_NAME.toUpperCase()} / AGENCIA MULTIMARCA 0KM</span>
-        {updated && <span>Actualizado el <time dateTime={updated}>{formatDate(updated)}</time></span>}
       </div>
     </section>
   );
