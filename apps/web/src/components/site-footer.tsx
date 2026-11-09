@@ -1,17 +1,47 @@
 import { Link } from 'react-router';
+import { Facebook, Instagram, Mail, Phone } from 'lucide-react';
 import { WhatsappButton } from '@/components/home/whatsapp-button';
-import { logo, links } from '@/components/home/site-header';
-import { EMAIL, FIRM_NAME, PHONE, PHONE_URL, SOCIAL_LINKS } from '@/constants/brand';
+import { logo } from '@/components/home/site-header';
+import { EMAIL, FACEBOOK_URL, FIRM_NAME, INSTAGRAM_HANDLE, INSTAGRAM_URL, PHONE, PHONE_URL } from '@/constants/brand';
 
-// Mismo footer de la home (misma estructura y clases), ahora compartido con las
-// páginas nuevas. Suma accesos a guías y, cuando se completen en brand.ts,
-// teléfono, email y redes.
-const extraLinks = [
+const compra = [
+  { label: 'Autos 0 km', href: '/0km' },
   { label: 'Plan de ahorro', href: '/financiacion/plan-de-ahorro' },
   { label: 'Simulador de cuotas', href: '/guias/simulador-de-cuotas' },
   { label: 'Guías', href: '/guias' },
 ];
 
 export function SiteFooter() {
-  return <footer className="site-footer"><div className="wrap footer-grid"><div className="footer-about"><a href="/#inicio" className="brand"><img src={logo} width="42" height="48" alt=""/><span>AGENCIA <strong>KOCOS</strong></span></a><p>Alternativas para acceder a tu próximo 0KM, con asesoramiento personalizado.</p></div><div className="footer-links"><span className="footer-label">EXPLORAR</span>{links.map(link=>link.route?<Link key={link.href} to={link.href}>{link.label}</Link>:<a key={link.href} href={link.href}>{link.label}</a>)}{extraLinks.map(link=><Link key={link.href} to={link.href}>{link.label}</Link>)}</div><div className="footer-contact"><span className="footer-label">EMPECEMOS</span><p>Tu próximo auto comienza con una consulta.</p><WhatsappButton/>{PHONE_URL&&<p className="footer-extra"><a href={PHONE_URL}>{PHONE}</a></p>}{EMAIL&&<p className="footer-extra"><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>}{SOCIAL_LINKS.length>0&&<p className="footer-extra">{SOCIAL_LINKS.map((link,index)=><span key={link.url}>{index>0&&' · '}<a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a></span>)}</p>}</div></div><div className="wrap footer-bottom"><span>© {new Date().getFullYear()} {FIRM_NAME}. Todos los derechos reservados.</span><a href="#inicio">Volver arriba ↑</a></div></footer>;
+  return (
+    <footer className="site-footer">
+      <div className="wrap footer-grid">
+        <div className="footer-about">
+          <a href="/#inicio" className="brand"><img src={logo} width="303" height="408" alt="" loading="lazy" /><span>AGENCIA <strong>KOCOS</strong></span></a>
+          <p>Agencia multimarca de autos 0 km en CABA y el AMBA. Contado, crédito prendario, plan de ahorro y tu usado como parte de pago.</p>
+          <WhatsappButton className="footer-cta" />
+        </div>
+        <nav className="footer-links" aria-label="Comprar">
+          <h3>Comprar</h3>
+          {compra.map(link => <Link key={link.href} to={link.href}>{link.label}</Link>)}
+        </nav>
+        <nav className="footer-links" aria-label="Ayuda">
+          <h3>Ayuda</h3>
+          <a href="/#como-funciona">Cómo funciona</a>
+          <a href="/#preguntas">Preguntas frecuentes</a>
+          <a href="/#contacto">Pedir una propuesta</a>
+        </nav>
+        <div className="footer-contact">
+          <h3>Contacto</h3>
+          {PHONE_URL && <a href={PHONE_URL}><Phone size={16} strokeWidth={1.6} aria-hidden="true" /> {PHONE}</a>}
+          {EMAIL && <a href={`mailto:${EMAIL}`}><Mail size={16} strokeWidth={1.6} aria-hidden="true" /> {EMAIL}</a>}
+          {INSTAGRAM_URL && <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"><Instagram size={16} strokeWidth={1.6} aria-hidden="true" /> {INSTAGRAM_HANDLE || 'Instagram'}</a>}
+          {FACEBOOK_URL && <a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer"><Facebook size={16} strokeWidth={1.6} aria-hidden="true" /> Facebook</a>}
+        </div>
+      </div>
+      <div className="wrap footer-bottom">
+        <span>© {new Date().getFullYear()} {FIRM_NAME}</span>
+        <a href="#inicio">Volver arriba ↑</a>
+      </div>
+    </footer>
+  );
 }

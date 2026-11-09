@@ -21,7 +21,7 @@ function WithDot({ text }: { text: string }) {
 }
 
 /** Cabecera oscura con la misma tipografía, etiqueta y botones que el hero de la home. */
-export function DocHero({ label, h1, h1Em, lead, breadcrumbs, updated, origen, whatsappMessage }: Props) {
+export function DocHero({ h1, h1Em, lead, breadcrumbs, updated, origen, whatsappMessage }: Props) {
   return (
     <section className="doc-hero" id="inicio">
       <div className="hero-light" aria-hidden="true" />
@@ -35,7 +35,7 @@ export function DocHero({ label, h1, h1Em, lead, breadcrumbs, updated, origen, w
             ))}
           </ol>
         </nav>
-        <span className="eyebrow hero-kicker"><span className="eyebrow-line" /> {label}</span>
+        
         <h1>{h1Em ? <>{h1} <em><WithDot text={h1Em} /></em></> : <WithDot text={h1} />}</h1>
         <p className="doc-lead">{lead}</p>
         <div className="hero-buttons">

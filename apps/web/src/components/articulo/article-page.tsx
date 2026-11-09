@@ -104,7 +104,7 @@ export function ArticlePage({ data, children }: Props) {
           <aside className="doc-aside" aria-label="En esta guía">
             {toc.length > 2 && (
               <nav className="doc-toc" aria-label="Índice">
-                <span className="eyebrow dark-kicker">EN ESTA GUÍA</span>
+                
                 <ol>{toc.map(item => <li key={item.id}><a href={`#${item.id}`}>{item.title}</a></li>)}</ol>
               </nav>
             )}
@@ -120,7 +120,7 @@ export function ArticlePage({ data, children }: Props) {
       {related.length > 0 && (
         <section className="doc-related">
           <div className="wrap">
-            <span className="eyebrow dark-kicker">SEGUÍ LEYENDO</span>
+            
             <h2>Te puede interesar<span className="blue-dot">.</span></h2>
             <LinkRows links={related} />
           </div>
