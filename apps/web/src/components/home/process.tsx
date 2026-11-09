@@ -1,4 +1,31 @@
-import { ArrowUpRight, Check } from 'lucide-react';
+const pasos = [
+  { titulo: 'Contanos qué vehículo buscás', texto: 'Modelo, versión o simplemente para qué lo vas a usar.' },
+  { titulo: 'Conocemos tu situación', texto: 'Si tenés usado o anticipo y cómo preferís pagar.' },
+  { titulo: 'Te mostramos las alternativas', texto: 'Con el precio final y las condiciones vigentes al consultar.' },
+  { titulo: 'Elegís cómo avanzar', texto: 'Sin apuro: decidís cuando tengas todo claro.' },
+];
 
-const steps = ['Contanos qué vehículo buscás.','Conocemos tu situación y tus necesidades.','Te mostramos las alternativas disponibles.','Elegís cómo avanzar.'];
-export function Process() {return <><section className="process-section" id="como-funciona"><div className="wrap process-layout"><div className="process-heading"><h2 data-reveal data-reveal-delay="70">¿Cómo empezamos<span className="blue-dot">?</span></h2><p data-reveal data-reveal-delay="140">Un primer paso sencillo para descubrir qué posibilidades se ajustan a lo que necesitás.</p><a href="#contacto" className="text-link" data-reveal data-reveal-delay="200">Hacé tu consulta <ArrowUpRight size={19}/></a></div><div className="process-steps">{steps.map((step,index)=><div className="process-step" key={step} data-reveal data-reveal-delay={String(index*80)}><span className="step-mark"><Check size={19}/></span><h3>{step}</h3><ArrowUpRight size={19} className="step-arrow"/></div>)}</div></div></section><section className="used-section"><div className="wrap used-layout" data-reveal><span className="used-symbol" aria-hidden="true">↗</span><div><h2>¿Tenés un usado o un anticipo?</h2><p>Si ya contás con un vehículo para entregar o disponés de un anticipo, contanos tu situación para evaluar las alternativas disponibles.</p></div><a href="#contacto" className="button-light">Quiero consultar <ArrowUpRight size={19}/></a></div></section><section className="trust-section"><div className="wrap trust-layout"><div data-reveal><h2>Te acompañamos en cada paso<span className="blue-dot">.</span></h2></div><div className="trust-list">{['Asesoramiento personalizado','Información clara','Opciones según tu situación','Atención directa'].map((item,index)=><div key={item} data-reveal data-reveal-delay={String(index*70)}><Check size={19}/><span>{item}</span></div>)}</div></div></section></>}
+export function Process() {
+  return (
+    <section className="seccion proceso" id="como-funciona">
+      <div className="contenedor">
+        <div className="proceso-cabeza">
+          <h2 className="revela">Cómo empezamos</h2>
+          <p className="seccion-bajada">Un primer paso sencillo para ver qué posibilidades se ajustan a lo que necesitás.</p>
+        </div>
+        <div className="pasos">
+          <span className="pasos-riel" aria-hidden="true"><span className="pasos-avance" /></span>
+          <ol>
+            {pasos.map((paso, i) => (
+              <li className="paso" key={paso.titulo}>
+                <span className="paso-num" aria-hidden="true">{i + 1}</span>
+                <h3>{paso.titulo}</h3>
+                <p>{paso.texto}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+  );
+}

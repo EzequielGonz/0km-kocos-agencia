@@ -15,6 +15,8 @@ import ajustesStylesheet from '@/styles/ajustes.css?url';
 // Fuentes propias (sin Google Fonts) y pulido visual del 09/11. Van al final para prevalecer.
 import fuentesStylesheet from '@/styles/fuentes.css?url';
 import pulidoStylesheet from '@/styles/pulido.css?url';
+// Rediseño premium del 09/11: noche azul, la cinta del logo y la ruta en 3D. Va último.
+import premiumStylesheet from '@/styles/premium.css?url';
 import { publicOrigin } from '@/lib/site-origin.server';
 import { VERIFICATION } from '@/constants/brand';
 import { HorizonsPreviewScripts } from './horizons-preview-scripts';
@@ -27,6 +29,7 @@ export const links: Route.LinksFunction = () => [
 	{ rel: 'preload', href: '/fonts/plus-jakarta-sans-normal-latin-d4d84d.woff2', as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
 	{ rel: 'stylesheet', href: fuentesStylesheet },
 	{ rel: 'stylesheet', href: pulidoStylesheet },
+	{ rel: 'stylesheet', href: premiumStylesheet },
 	{ rel: 'icon', href: '/logo-marca.png', type: 'image/png' },
 	{ rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
 ];
